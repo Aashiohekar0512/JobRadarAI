@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobRadarAI - Find Your First Job</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        header {
+            background: #ffffff;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 12px #00000010;
+        }
+
+        .logo {
+            color: #2563eb;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: #334155;
+            text-decoration: none;
+            margin-left: 22px;
+            font-weight: bold;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 85px 20px;
+            background: linear-gradient(135deg, #1d4ed8, #4338ca);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            background: white;
+            max-width: 650px;
+            margin: auto;
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            min-width: 0;
+            padding: 14px;
+            border: none;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .search-box button {
+            padding: 14px 22px;
+            border: none;
+            background: #f59e0b;
+            color: white;
+            font-weight: bold;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .recommend-button {
+            display: inline-block;
+            margin-top: 22px;
+            padding: 14px 24px;
+            background: white;
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+
+        .features {
+            padding: 55px 7%;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px #00000008;
+        }
+
+        .card h3 {
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .card-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #176b5b;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        footer {
+            background: #172033;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 7px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">JobRadarAI</div>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/jobs/">Jobs</a>
+        <a href="/recommend">AI Recommendations</a>
+        <a href="/docs">API</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Find Your First Job with AI</h1>
+    <p>Discover Fresher Jobs Across India</p>
+
+    <form class="search-box" action="/search" method="get">
+        <input
+            type="text"
+            name="keyword"
+            placeholder="Enter job title or skills"
+        >
+        <button type="submit">Search Jobs</button>
+    </form>
+
+    <a class="recommend-button" href="/recommend">
+        Find Jobs Based on My Skills
+    </a>
+</section>
+
+<section class="features">
+    <h2>Explore Job Opportunities</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>All India Jobs</h3>
+            <p>Explore job opportunities from different cities across India.</p>
+        </div>
+
+        <div class="card">
+            <h3>Fresher Friendly</h3>
+            <p>Discover opportunities suitable for candidates starting their careers.</p>
+        </div>
+
+        <div class="card">
+            <h3>Remote Jobs</h3>
+            <p>Find work-from-home opportunities available in our job database.</p>
+        </div>
+
+        <div class="card">
+            <h3>Easy Job Search</h3>
+            <p>Search jobs by title, location and category.</p>
+        </div>
+
+        <div class="card">
+            <h3>AI Job Recommendations</h3>
+            <p>Enter your skills and discover jobs that match your skill set.</p>
+            <a class="card-link" href="/recommend">Explore Recommendations →</a>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 JobRadarAI | AI Powered Fresher Job Search Platform</p>
+</footer>
+
+</body>
+</html>

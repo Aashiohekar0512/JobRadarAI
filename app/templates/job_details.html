@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details - JobRadarAI</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #172033;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .job-card {
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px #00000010;
+        }
+
+        h1 {
+            color: #1d4ed8;
+        }
+
+        .detail {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .apply {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 13px 22px;
+            background: #176b5b;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #1d4ed8;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="job-card">
+        <h1>{{ job.title or "Job Details" }}</h1>
+
+        <div class="detail"><strong>Company:</strong> {{ job.company or "Not available" }}</div>
+        <div class="detail"><strong>Location:</strong> {{ job.location or "Not available" }}</div>
+        <div class="detail"><strong>Category:</strong> {{ job.category or job.ai_category or "Not available" }}</div>
+        <div class="detail"><strong>Job Type:</strong> {{ job.job_type or "Not available" }}</div>
+        <div class="detail"><strong>Experience:</strong> {{ job.experience or "Not available" }}</div>
+        <div class="detail"><strong>Salary:</strong> {{ job.salary or "Not disclosed" }}</div>
+        <div class="detail"><strong>Posted Date:</strong> {{ job.posted_date or "Not available" }}</div>
+
+        <h3>Job Description</h3>
+        <p>{{ job.description or "Description not available." }}</p>
+
+        {% if job.apply_url and job.apply_url.startswith("https://") %}
+            <a class="apply" href="{{ job.apply_url }}" target="_blank" rel="noopener noreferrer">Apply Now</a>
+        {% else %}
+            <p>Application link not available.</p>
+        {% endif %}
+
+        <br>
+        <a class="back" href="/jobs/">← Back to Jobs</a>
+    </div>
+</div>
+</body>
+</html>

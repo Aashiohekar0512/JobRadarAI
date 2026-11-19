@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Jobs - JobRadarAI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #172033;
+        }
+
+        header {
+            background: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px #00000010;
+        }
+
+        .logo {
+            color: #2563eb;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        header a {
+            color: #334155;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            margin: 25px 0;
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        select {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    background: white;
+}
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .job-card {
+            background: white;
+            padding: 24px;
+            margin-bottom: 18px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px #00000008;
+        }
+
+        .job-card h2 {
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        .details {
+            color: #475569;
+            line-height: 1.9;
+            margin: 12px 0;
+        }
+
+        .apply {
+            display: inline-block;
+            background: #16a34a;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 7px;
+            text-decoration: none;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .empty {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .search-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">JobRadarAI</div>
+    <a href="/">Home</a>
+</header>
+
+<div class="container">
+
+    <h1>Find Your Dream Job</h1>
+    <p>Explore fresher opportunities across India.</p>
+
+    <form class="search-form" action="/search" method="get">
+        <input
+            type="text"
+            name="keyword"
+            placeholder="Job title or skills"
+            value="{{ keyword }}"
+        >
+
+        <input
+            type="text"
+            name="location"
+            placeholder="City or Remote"
+            value="{{ location }}"
+        >
+        <select name="category">
+    <option value="">All Categories</option>
+    <option value="IT" {% if category == "IT" %}selected{% endif %}>IT</option>
+    <option value="Marketing" {% if category == "Marketing" %}selected{% endif %}>Marketing</option>
+    <option value="Finance" {% if category == "Finance" %}selected{% endif %}>Finance</option>
+    <option value="Sales" {% if category == "Sales" %}selected{% endif %}>Sales</option>
+    <option value="Customer Support" {% if category == "Customer Support" %}selected{% endif %}>Customer Support</option>
+</select>
+
+<select name="job_type">
+    <option value="">All Job Types</option>
+    <option value="Full-time" {% if job_type == "Full-time" %}selected{% endif %}>Full Time</option>
+    <option value="Part-time" {% if job_type == "Part-time" %}selected{% endif %}>Part Time</option>
+    <option value="Internship" {% if job_type == "Internship" %}selected{% endif %}>Internship</option>
+    <option value="Remote" {% if job_type == "Remote" %}selected{% endif %}>Remote</option>
+</select>
+
+        <button type="submit">Search</button>
+    </form>
+
+    <h3>{{ total_jobs }} Jobs Found</h3>
+
+    {% for job in jobs %}
+    <div class="job-card">
+
+        <h2>{{ job.title }}</h2>
+
+        <div class="details">
+            <strong>Company:</strong> {{ job.company }}<br>
+            <strong>Location:</strong> {{ job.location }}<br>
+            <strong>Category:</strong> {{ job.category }}<br>
+            <strong>Job Type:</strong> {{ job.job_type }}<br>
+            <strong>Experience:</strong> {{ job.experience }}<br>
+            <strong>Salary:</strong>
+            {% if job.salary %}
+                ₹{{ job.salary }}
+            {% else %}
+                Not Disclosed
+            {% endif %}
+            <br>
+            <strong>Posted:</strong> {{ job.posted_date or "Not Available" }}
+        </div>
+
+        <p>{{ job.description }}</p>
+
+        {% if job.apply_url and job.apply_url.startswith("https://") %}
+
+    <a class="details"
+       href="/jobs/view/{{ job.id }}">
+       View Details
+    </a>
+
+    <a class="apply"
+       href="{{ job.apply_url }}"
+       target="_blank"
+       rel="noopener noreferrer">
+       Apply Now
+    </a>
+
+{% else %}
+
+    <a class="details"
+       href="/jobs/view/{{ job.id }}">
+       View Details
+    </a>
+
+    <p>Application link unavailable.</p>
+
+{% endif %}
+
+</div>
+{% else %}
+<div class="empty">
+    <h2>No Jobs Found</h2>
+    <p>Try searching with another job title or location.</p>
+</div>
+{% endfor %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Jobs - JobRadarAI</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #173b70;
+        }
+
+        .search-box, .job-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            box-shadow: 0 3px 12px #00000010;
+        }
+
+        input {
+            width: 70%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 13px 18px;
+            background: #176b5b;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .score {
+            color: #176b5b;
+            font-weight: bold;
+        }
+
+        a {
+            color: #176b5b;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>JobRadarAI</h1>
+    <h2>Find Jobs Matching Your Skills</h2>
+
+    <div class="search-box">
+        <form action="/recommend" method="get">
+            <input
+                type="text"
+                name="skills"
+                placeholder="Example: Python, SQL, Excel"
+                value="{{ skills }}"
+                required
+            >
+            <button type="submit">Find My Jobs</button>
+        </form>
+    </div>
+
+    {% if skills %}
+        <h2>{{ total_jobs }} Recommended Jobs Found</h2>
+    {% endif %}
+
+    {% for job in recommendations %}
+        <div class="job-card">
+            <h3>{{ job.title }}</h3>
+            <p><strong>Company:</strong> {{ job.company }}</p>
+            <p><strong>Location:</strong> {{ job.location }}</p>
+            <p><strong>Matched Skills:</strong>
+                {{ job.matched_skills | join(", ") }}
+            </p>
+            <p class="score">
+                Match Score: {{ job.match_score }}%
+            </p>
+
+            {% if job.apply_url and job.apply_url.startswith("https://") %}
+                <a href="{{ job.apply_url }}" target="_blank" rel="noopener noreferrer">
+                    Apply Now
+                </a>
+            {% else %}
+                <p>Apply link not available</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    {% if skills and total_jobs == 0 %}
+        <p>No matching jobs found. Try adding different skills.</p>
+    {% endif %}
+
+    <p><a href="/">Back to Home</a></p>
+
+</div>
+</body>
+</html>

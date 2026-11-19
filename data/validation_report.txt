@@ -1,0 +1,15 @@
+JobRadarAI - Manual Validation Report
+
+Total Posts Reviewed: 50
+
+Role Correct: 46
+Role Accuracy: 92%
+
+City Correct: 25
+City Accuracy: 50%
+
+Validation Method:
+50 job posts were manually checked against
+their original job postings.
+
+AI Tagging: Gemini LLM
